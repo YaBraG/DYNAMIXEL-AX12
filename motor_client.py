@@ -25,4 +25,5 @@ angle2 = 0
 
 while True:
     input_pos = int(input("goal pos: "))
-    my_dxl1.set_moving_speed(input_pos)
+    my_dxl1.set_moving_speed(200)
+    my_dxl1.set_ccw_angle_limit(input_pos)
