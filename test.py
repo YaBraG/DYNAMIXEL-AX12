@@ -99,5 +99,5 @@ def on_message(pitch, yaw):
     # Ax12.disconnect()
 
 
-sio.connect('http://192.168.2.12:3000')
+sio.connect('http://192.168.2.11:3000')
 sio.wait()
