@@ -70,7 +70,7 @@ def on_message(h):
 @sio.on('mouse-order')
 def on_message(pitch, yaw):
     print(pitch, yaw)
-    angle1 = (int(pitch))
+    # angle1 = (int(pitch))
     angle2 = (int(yaw))
     # my_dxl1.set_goal_position(angle1)
     my_dxl2.set_goal_position(angle2)
