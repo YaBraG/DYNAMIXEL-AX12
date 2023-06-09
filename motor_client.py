@@ -105,8 +105,6 @@ def connect():
     print('connection established')
     sio.emit("ID", 'python-servo-client')
     drive.start()
-    while (1):
-        drive.move()
 
 
 @sio.event
@@ -139,6 +137,7 @@ def on_message(angle, speed):
 
     drive.setAngle(newAngle)
     drive.setSpeed(newSpeed)
+    drive.move()
 
 
 sio.connect('http://192.168.2.11:3000')
