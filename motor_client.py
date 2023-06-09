@@ -3,7 +3,7 @@ import socketio
 
 sio = socketio.Client()
 
-# e.g 'COM11' windows or '/dev/ttyUSB0' for Linux/Raspberry
+# 'COM11' windows or '/dev/ttyUSB0' for Linux/Raspberry
 Ax12.DEVICENAME = '/dev/ttyUSB0'
 Ax12.BAUDRATE = 1000000
 
