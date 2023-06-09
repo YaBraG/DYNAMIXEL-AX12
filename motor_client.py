@@ -71,8 +71,9 @@ class Drive:
         speedMult2 = math.sin(self.angle)
         mSpeed1 = self.speed * speedMult1
         mSpeed2 = self.speed * speedMult2
-        self.motor1.set_moving_speed(round(int(mSpeed1)))
-        self.motor2.set_moving_speed(round(int(mSpeed2)))
+        print(mSpeed1, mSpeed2)
+        # self.motor1.set_moving_speed(round(int(mSpeed1)))
+        # self.motor2.set_moving_speed(round(int(mSpeed2)))
 
     def setAngle(self, angle):
         self.angle = angle
