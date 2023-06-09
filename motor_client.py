@@ -132,7 +132,7 @@ def on_message(angle, speed):
         newSpeed = round(remap(speed, 0, 1, 0, 1023))
 
     if angle < 0:
-        newAngle = round(remap(angle, -1, 0, 0, 2047))
+        newAngle = round(remap(angle, -1, 0, 1024, 2047))
 
     if angle > 0:
         newAngle = round(remap(angle, 0, 1, 0, 1023))
