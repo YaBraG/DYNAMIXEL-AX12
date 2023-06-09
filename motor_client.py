@@ -71,9 +71,9 @@ class Drive:
         speedMult2 = math.sin(self.angle)
         mSpeed1 = self.speed * speedMult1
         mSpeed2 = self.speed * speedMult2
-        # print(mSpeed1, mSpeed2)
+        print(mSpeed1, mSpeed2)
         self.motor1.set_moving_speed(self.angle)
-        self.motor2.set_moving_speed(-self.angle)
+        self.motor2.set_moving_speed(- self.angle)
 
     def setAngle(self, angle):
         self.angle = angle
@@ -105,6 +105,8 @@ def connect():
     print('connection established')
     sio.emit("ID", 'python-servo-client')
     drive.start()
+    while (1):
+        drive.move()
 
 
 @sio.event
@@ -130,13 +132,13 @@ def on_message(angle, speed):
         newSpeed = round(remap(speed, 0, 1, 0, 1023))
 
     if angle < 0:
-        newAngle = round(remap(angle, -1, 0, -180, 0))
+        newAngle = round(remap(angle, -1, 0, 0, 2047))
 
     if angle > 0:
-        newAngle = round(remap(angle, 0, 1, 0, 180))
+        newAngle = round(remap(angle, 0, 1, 0, 1023))
+
     drive.setAngle(newAngle)
     drive.setSpeed(newSpeed)
-    drive.move()
 
 
 sio.connect('http://192.168.2.11:3000')
