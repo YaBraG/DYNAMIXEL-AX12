@@ -1,6 +1,7 @@
 from AX12 import Ax12
 import math
 import socketio
+import time
 
 
 def remap(x, oMin, oMax, nMin, nMax):
@@ -141,6 +142,7 @@ def on_message(angle, speed):
     drive.setAngle(newAngle)
     drive.setSpeed(newSpeed)
     drive.move()
+    time.sleep(0.002)
 
 
 sio.connect('http://192.168.2.11:3000')
