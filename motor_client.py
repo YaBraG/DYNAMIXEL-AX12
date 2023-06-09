@@ -15,7 +15,6 @@ motor1 = Ax12(1)
 motor2 = Ax12(2)
 
 motor1.enable_torque()
-motor1.set_moving_speed(1023)
 motor2.set_moving_speed(500)
 motor1.set_torque_limit(1023)
 
@@ -24,4 +23,4 @@ angle2 = 0
 
 while True:
     input_pos = int(input("goal pos: "))
-    motor1.set_goal_position(input_pos)
+    motor1.set_moving_speed(input_pos)
