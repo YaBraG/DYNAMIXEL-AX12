@@ -71,7 +71,7 @@ class Drive:
         speedMult2 = math.sin(self.angle)
         mSpeed1 = self.speed * speedMult1
         mSpeed2 = self.speed * speedMult2
-        print(mSpeed1, mSpeed2)
+        print(round(mSpeed1, 2), round(mSpeed2, 2))
         # self.motor1.set_moving_speed(round(int(mSpeed1)))
         # self.motor2.set_moving_speed(round(int(mSpeed2)))
 
@@ -126,16 +126,17 @@ def on_message(angle, speed):
     # newSpeed = 0
     # newAngle = 0
     if speed < 0:
-        newSpeed = round(remap(speed, -1, 0, 1024, 2047))
+        newSpeed = remap(speed, -1, 0, 1024, 2047)
 
     if speed > 0:
-        newSpeed = round(remap(speed, 0, 1, 0, 1023))
+        newSpeed = remap(speed, 0, 1, 0, 1023)
 
     if angle < 0:
-        newAngle = round(remap(angle, -1, 0, -180, 0), 2)
+        newAngle = remap(angle, -1, 0, -180, 0)
 
     if angle > 0:
-        newAngle = round(remap(angle, 0, 1, 0, 180), 2)
+        newAngle = remap(angle, 0, 1, 0, 180)
+
     drive.setAngle(newAngle)
     drive.setSpeed(newSpeed)
 
