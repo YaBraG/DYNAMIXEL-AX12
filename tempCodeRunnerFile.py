@@ -96,8 +96,8 @@ def on_message(angle, speed):
 
     motor1.set_moving_speed(newAngle)
     motor2.set_moving_speed(newSpeed)
-    time.sleep(0.5)
 
 
 sio.connect('http://192.168.2.11:3000')
+time.sleep(1)
 sio.wait()
