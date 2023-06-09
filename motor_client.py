@@ -132,11 +132,10 @@ def on_message(angle, speed):
         newSpeed = round(remap(speed, 0, 1, 0, 1023))
 
     if angle < 0:
-        newAngle = remap(angle, -1, 0, -180, 0)
+        newAngle = round(remap(angle, -1, 0, -180, 0), 2)
 
     if angle > 0:
-        newAngle = remap(angle, 0, 1, 0, 180)
-
+        newAngle = round(remap(angle, 0, 1, 0, 180), 2)
     drive.setAngle(newAngle)
     drive.setSpeed(newSpeed)
 
