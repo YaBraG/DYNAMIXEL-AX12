@@ -1,3 +1,6 @@
+import socketio
+
+
 def remap(x, oMin, oMax, nMin, nMax):
 
     # range check
@@ -34,11 +37,43 @@ def remap(x, oMin, oMax, nMin, nMax):
     return result
 
 
-old_value = float(input())
-old_min = 0
-old_max = 1
-new_min = 0
-new_max = 1023
+sio = socketio.Client()
 
 
-print(round(remap(old_value, old_min, old_max, new_min, new_max)))
+@sio.event
+def connect():
+    print('connection established')
+    sio.emit("ID", 'python-servo-client')
+
+
+@sio.event
+def my_message(data):
+    print('message received with ', data)
+    sio.emit('my response', {'response': 'my response'})
+
+
+@sio.event
+def disconnect():
+    print('disconnected from server')
+
+
+@sio.on('drive-orders')
+def on_message(angle, speed):
+
+    if speed < 0:
+        newSpeed = round(remap(speed, -1, 0, 1024, 2047))
+
+    if speed > 0:
+        newSpeed = round(remap(speed, 0, 1, 0, 1023))
+
+    if angle < 0:
+        newAngle = round(remap(angle, -1, 0, 1024, 2047))
+
+    if angle > 0:
+        newAngle = round(remap(angle, 0, 1, 0, 1023))
+
+    print(newAngle, newSpeed)
+
+
+sio.connect('http://192.168.2.11:3000')
+sio.wait()
