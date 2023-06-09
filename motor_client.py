@@ -67,11 +67,11 @@ class Drive:
         self.motor2.enable_torque()
 
     def move(self):
-        speedMult1 = math.cos(self.angle)
-        speedMult2 = math.sin(self.angle)
-        mSpeed1 = self.speed * speedMult1
-        mSpeed2 = self.speed * speedMult2
-        print(mSpeed1, mSpeed2)
+        # speedMult1 = math.cos(self.angle)
+        # speedMult2 = math.sin(self.angle)
+        # mSpeed1 = self.speed * speedMult1
+        # mSpeed2 = self.speed * speedMult2
+        # print(mSpeed1, mSpeed2)
         self.motor1.set_moving_speed(self.angle)
         self.motor2.set_moving_speed(- self.angle)
 
