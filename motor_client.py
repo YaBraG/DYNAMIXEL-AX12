@@ -65,6 +65,8 @@ class Drive:
     def start(self):
         self.motor1.enable_torque()
         self.motor2.enable_torque()
+        self.motor1.set_torque_limit(1023)
+        self.motor2.set_torque_limit(1023)
 
     def move(self):
         # speedMult1 = math.cos(self.angle)
