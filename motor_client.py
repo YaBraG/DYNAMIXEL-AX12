@@ -73,7 +73,7 @@ class Drive:
         # mSpeed2 = self.speed * speedMult2
         # print(mSpeed1, mSpeed2)
         self.motor1.set_moving_speed(self.angle)
-        self.motor2.set_moving_speed(- self.angle)
+        self.motor2.set_moving_speed(remap(self.angle, 0, 2047, 2047, 0))
 
     def setAngle(self, angle):
         self.angle = angle
