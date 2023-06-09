@@ -145,5 +145,4 @@ def on_message(angle, speed):
 
 
 sio.connect('http://192.168.2.11:3000')
-time.sleep(0.002)
 sio.wait()
