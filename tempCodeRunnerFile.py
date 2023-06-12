@@ -92,7 +92,7 @@ try:
             newAngle = round(remap(angle, 0, 3.14, 0, 1023))
 
         motor2Angle = round(remap(newAngle, 0, 2047, -2047, 0))
-        motor1.set_moving_speed(motor2Angle)
+        motor1.set_moving_speed(-motor2Angle)
         motor2.set_moving_speed(newAngle)
 
     sio.connect('http://192.168.2.17:3000')
