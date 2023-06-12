@@ -59,27 +59,23 @@ motor2.enable_torque()
 motor1.set_torque_limit(1023)
 motor2.set_torque_limit(1023)
 
-
-@sio.event
-def connect():
-    print('connection established')
-    sio.emit("ID", 'python-servo-client')
-
-
-@sio.event
-def my_message(data):
-    print('message received with ', data)
-    sio.emit('my response', {'response': 'my response'})
-
-
-@sio.event
-def disconnect():
-    print('disconnected from server')
-    motor1.disable_torque()
-    motor2.disable_torque()
-
-
 try:
+    @sio.event
+    def connect():
+        print('connection established')
+        sio.emit("ID", 'python-servo-client')
+
+    @sio.event
+    def my_message(data):
+        print('message received with ', data)
+        sio.emit('my response', {'response': 'my response'})
+
+    @sio.event
+    def disconnect():
+        print('disconnected from server')
+        motor1.disable_torque()
+        motor2.disable_torque()
+
     @sio.on('drive-orders')
     def on_message(angle, speed):
         # newSpeed = 0
@@ -95,11 +91,11 @@ try:
             motor1.set_moving_speed(newSpeed)
             motor2.set_moving_speed(newAngle)
 
+    sio.connect('http://192.168.2.17:3000')
+    time.sleep(1)
+    sio.wait()
+
 except KeyboardInterrupt:
     motor1.disable_torque()
     motor2.disable_torque()
-
-
-sio.connect('http://192.168.2.17:3000')
-time.sleep(1)
-sio.wait()
+    print('Torque Disabled')
