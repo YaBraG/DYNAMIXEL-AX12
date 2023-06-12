@@ -56,8 +56,6 @@ motor1.set_max_voltage_limit(160)
 motor2.set_max_voltage_limit(160)
 motor1.enable_torque()
 motor2.enable_torque()
-motor1.set_moving_speed(500)
-motor2.set_moving_speed(500)
 motor1.set_torque_limit(1023)
 motor2.set_torque_limit(1023)
 
@@ -97,7 +95,7 @@ def on_message(angle, speed):
     try:
         motor1.set_moving_speed(newSpeed)
         motor2.set_moving_speed(newAngle)
-    except:
+    except KeyboardInterrupt:
         motor1.disable_torque()
         motor2.disable_torque()
 
