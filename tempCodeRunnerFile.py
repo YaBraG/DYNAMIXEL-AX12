@@ -92,10 +92,11 @@ try:
             motor2.set_moving_speed(newAngle)
 
     sio.connect('http://192.168.2.17:3000')
-    time.sleep(1)
     sio.wait()
 
 except KeyboardInterrupt:
     time.sleep(1)
+    motor1.set_moving_speed(0)
+    motor2.set_moving_speed(0)
     motor1.disable_torque()
     motor2.disable_torque()
