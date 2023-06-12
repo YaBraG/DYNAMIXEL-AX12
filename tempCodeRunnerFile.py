@@ -77,6 +77,8 @@ def my_message(data):
 @sio.event
 def disconnect():
     print('disconnected from server')
+    motor1.disable_torque()
+    motor2.disable_torque()
 
 
 @sio.on('drive-orders')
@@ -92,8 +94,12 @@ def on_message(angle, speed):
     if angle > 0:
         newAngle = round(remap(angle, 0, 3.14, 0, 1023))
 
-    motor1.set_moving_speed(newSpeed)
-    motor2.set_moving_speed(newAngle)
+    try:
+        motor1.set_moving_speed(newSpeed)
+        motor2.set_moving_speed(newAngle)
+    except:
+        motor1.disable_torque()
+        motor2.disable_torque()
 
 
 sio.connect('http://192.168.2.17:3000')
