@@ -96,6 +96,6 @@ try:
     sio.wait()
 
 except KeyboardInterrupt:
-    time.sleep(3)
+    time.sleep(1)
     motor1.disable_torque()
     motor2.disable_torque()
