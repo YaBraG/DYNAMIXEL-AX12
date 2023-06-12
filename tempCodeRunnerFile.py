@@ -79,25 +79,25 @@ def disconnect():
     motor2.disable_torque()
 
 
-@sio.on('drive-orders')
-def on_message(angle, speed):
-    # newSpeed = 0
-    # newAngle = 0
+try:
+    @sio.on('drive-orders')
+    def on_message(angle, speed):
+        # newSpeed = 0
+        # newAngle = 0
 
-    newSpeed = round(remap(speed, 0, 1.15, 0, 1023))
+        newSpeed = round(remap(speed, 0, 1.15, 0, 1023))
 
-    if angle < 0:
-        newAngle = round(remap(angle, -3.14, 0, 1024, 2047))
+        if angle < 0:
+            newAngle = round(remap(angle, -3.14, 0, 1024, 2047))
 
-    if angle > 0:
-        newAngle = round(remap(angle, 0, 3.14, 0, 1023))
+        if angle > 0:
+            newAngle = round(remap(angle, 0, 3.14, 0, 1023))
+            motor1.set_moving_speed(newSpeed)
+            motor2.set_moving_speed(newAngle)
 
-    try:
-        motor1.set_moving_speed(newSpeed)
-        motor2.set_moving_speed(newAngle)
-    except KeyboardInterrupt:
-        motor1.disable_torque()
-        motor2.disable_torque()
+except KeyboardInterrupt:
+    motor1.disable_torque()
+    motor2.disable_torque()
 
 
 sio.connect('http://192.168.2.17:3000')
