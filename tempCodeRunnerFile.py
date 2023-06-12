@@ -95,7 +95,7 @@ try:
         motor2Angle = round(remap(newAngle, 0, 2047, -2047, 0))
         motor2Angle = -motor2Angle
         if motor2Angle > 1023:
-            motor2Angle = round(remap(motor2Angle, 1024, 2047, -2047, 1024))
+            motor2Angle = round(remap(motor2Angle, 1024, 2047, -2047, -1024))
             motor2Angle = -motor2Angle
         motor1.set_moving_speed(motor2Angle)
         motor2.set_moving_speed(newAngle)
