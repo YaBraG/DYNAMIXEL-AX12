@@ -52,7 +52,8 @@ Ax12.connect()
 # create AX12 instance with motors ID
 motor1 = Ax12(1)
 motor2 = Ax12(2)
-
+motor1.set_max_voltage_limit(160)
+motor2.set_max_voltage_limit(160)
 motor1.enable_torque()
 motor2.enable_torque()
 motor1.set_moving_speed(500)
