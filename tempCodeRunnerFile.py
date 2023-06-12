@@ -82,20 +82,17 @@ def disconnect():
 def on_message(angle, speed):
     # newSpeed = 0
     # newAngle = 0
-    if speed < 0:
-        newSpeed = round(remap(speed, -1, 0, 1024, 2047))
 
-    if speed > 0:
-        newSpeed = round(remap(speed, 0, 1.2, 0, 1023))
+    newSpeed = round(remap(speed, 0, 1.15, 0, 1023))
 
     if angle < 0:
-        newAngle = round(remap(angle, -1, 0, 1024, 2047))
+        newAngle = round(remap(angle, -3.14, 0, 1024, 2047))
 
     if angle > 0:
-        newAngle = round(remap(angle, 0, 1, 0, 1023))
+        newAngle = round(remap(angle, 0, 3.14, 0, 1023))
 
-    motor1.set_moving_speed(newAngle)
-    motor2.set_moving_speed(newSpeed)
+    motor1.set_moving_speed(newSpeed)
+    motor2.set_moving_speed(newAngle)
 
 
 sio.connect('http://192.168.2.17:3000')

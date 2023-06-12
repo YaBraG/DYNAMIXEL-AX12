@@ -60,17 +60,13 @@ def disconnect():
 @sio.on('drive-orders')
 def on_message(angle, speed):
 
-    if speed < 0:
-        newSpeed = round(remap(speed, -1, 0, 1024, 2047))
-
-    if speed > 0:
-        newSpeed = round(remap(speed, 0, 1.15, 0, 1023))
+    newSpeed = round(remap(speed, 0, 1.15, 0, 1023))
 
     if angle < 0:
-        newAngle = round(remap(angle, -1, 0, 1024, 2047))
+        newAngle = round(remap(angle, -3.14, 0, 1024, 2047))
 
     if angle > 0:
-        newAngle = round(remap(angle, 0, 1, 0, 1023))
+        newAngle = round(remap(angle, 0, 3.14, 0, 1023))
 
     print(newAngle, newSpeed)
 
