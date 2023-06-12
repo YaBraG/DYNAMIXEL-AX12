@@ -91,7 +91,7 @@ def on_message(angle, speed):
     if angle > 0:
         newAngle = round(remap(angle, 0, 3.14, 0, 1023))
 
-    motor1.set_moving_speed(newAngle)
+    motor1.set_moving_speed(newSpeed)
     motor2.set_moving_speed(newAngle)
 
 
