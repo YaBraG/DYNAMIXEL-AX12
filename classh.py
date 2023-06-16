@@ -1,4 +1,5 @@
 import socketio
+import math
 
 
 def remap(x, oMin, oMax, nMin, nMax):
@@ -60,24 +61,28 @@ def disconnect():
 @sio.on('drive-orders')
 def on_message(angle, speed):
 
-    newSpeed = round(remap(speed, 0, 1.15, 0, 1023))
-
-    if angle < 0:
-        newAngle = round(remap(angle, -3.14, 0, 1024, 2047))
-
-    if angle > 0:
-        newAngle = round(remap(angle, 0, 3.14, 0, 1023))
-
-    if newSpeed < 50:
+    newAngle = round(math.pow((angle + (4/math.pi))*speed*1000, 3), 4)
+    if speed > -0.05 and speed < 0.05:
         newAngle = 0
 
-    motor2Angle = round(remap(newAngle, 0, 2047, -2047, 0))
-    motor2Angle = -motor2Angle
-    if motor2Angle > 1023:
-        motor2Angle = round(remap(motor2Angle, 1024, 2047, -2047, -1024))
-        motor2Angle = -motor2Angle
-    print(newAngle, motor2Angle)
+    # newSpeed = round(remap(speed, 0, 1.15, 0, 1023))
+
+    # if angle < 0:
+    #     newAngle = round(remap(angle, -3.14, 0, 1024, 2047))
+
+    # if angle > 0:
+    #     newAngle = round(remap(angle, 0, 3.14, 0, 1023))
+
+    # if newSpeed < 50:
+    #     newAngle = 0
+
+    # motor2Angle = round(remap(newAngle, 0, 2047, -2047, 0))
+    # motor2Angle = -motor2Angle
+    # if motor2Angle > 1023:
+    #     motor2Angle = round(remap(motor2Angle, 1024, 2047, -2047, -1024))
+    #     motor2Angle = -motor2Angle
+    print(newAngle)
 
 
-sio.connect('http://192.168.2.17:3000')
+sio.connect('http://192.168.2.11:3000')
 sio.wait()
