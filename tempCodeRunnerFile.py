@@ -97,8 +97,8 @@ try:
         if motor2Angle > 1023:
             motor2Angle = round(remap(motor2Angle, 1024, 2047, -2047, -1024))
             motor2Angle = -motor2Angle
-        motor1.set_moving_speed(1023)
-        motor2.set_moving_speed(2040)
+    motor1.set_moving_speed(1023)
+    motor2.set_moving_speed(2040)
 
     sio.connect('http://192.168.2.11:3000')
     sio.wait()
