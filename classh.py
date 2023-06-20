@@ -79,7 +79,7 @@ def on_message(angle, speed):
         motor2Speed = round(remap(asMultiplier, 0, 90, 0, 2047))
 
     elif angle > 90 and angle <= 180:
-        motor1Speed = round(remap(asMultiplier, 90, 180, 0, 1023))
+        motor1Speed = round(remap(asMultiplier, 90, 180, 1023, 0))
         motor2Speed = round(2047 * speed)
 
     elif angle < 0 and angle > -90:

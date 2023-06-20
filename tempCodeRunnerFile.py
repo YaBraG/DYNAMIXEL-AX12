@@ -90,22 +90,27 @@ try:
             motor1Speed = 2047
             motor2Speed = 1023
 
+        # First Quadrant
         elif angle >= 0 and angle < 90:
             motor1Speed = round(1023 * speed)
             motor2Speed = round(remap(asMultiplier, 0, 90, 0, 2047))
 
+        # Second Quadrant
         elif angle > 90 and angle <= 180:
-            motor1Speed = round(remap(asMultiplier, 90, 180, 0, 1023))
+            motor1Speed = round(remap(asMultiplier, 90, 180, 1023, 0))
             motor2Speed = round(2047 * speed)
 
+        # Third Quadrant
         elif angle < 0 and angle > -90:
             motor1Speed = round(remap(asMultiplier, -90, 0, 2047, 0))
             motor2Speed = round(1023 * speed)
 
+        # Fourth Quadrant
         elif angle < -90 and angle >= -180:
             motor1Speed = round(2047 * speed)
             motor2Speed = round(remap(asMultiplier, -180, -90, 0, 1023))
 
+        # Speed Limiter
         if speed < 0.05:
             motor1Speed = 0
             motor2Speed = 0
