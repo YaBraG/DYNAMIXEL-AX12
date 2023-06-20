@@ -78,33 +78,46 @@ try:
 
     @sio.on('drive-orders')
     def on_message(angle, speed):
+        asMultiplier = angle * speed
         # newSpeed = 0
         # newAngle = 0
 
-        newSpeed = round(remap(speed, 0, 1.15, 0, 1023))
+        if angle == 90:
+            motor1Speed = 1023
+            motor2Speed = 2047
 
-        if angle < 0:
-            newAngle = round(remap(angle, -3.14, 0, 1024, 2047))
+        elif angle == -90:
+            motor1Speed = 2047
+            motor2Speed = 1023
 
-        if angle > 0:
-            newAngle = round(remap(angle, 0, 3.14, 0, 1023))
+        elif angle >= 0 and angle < 90:
+            motor1Speed = round(1023 * speed)
+            motor2Speed = round(remap(asMultiplier, 0, 90, 0, 2047))
 
-        if newSpeed < 50:
-            newAngle = 0
+        elif angle > 90 and angle <= 180:
+            motor1Speed = round(remap(asMultiplier, 90, 180, 0, 1023))
+            motor2Speed = round(2047 * speed)
 
-        motor2Angle = round(remap(newAngle, 0, 2047, -2047, 0))
-        motor2Angle = -motor2Angle
-        if motor2Angle > 1023:
-            motor2Angle = round(remap(motor2Angle, 1024, 2047, -2047, -1024))
-            motor2Angle = -motor2Angle
-        motor1.set_moving_speed(1023)
-        motor2.set_moving_speed(2040)
+        elif angle < 0 and angle > -90:
+            motor1Speed = round(remap(asMultiplier, -90, 0, 2047, 0))
+            motor2Speed = round(1023 * speed)
+
+        elif angle < -90 and angle >= -180:
+            motor1Speed = round(2047 * speed)
+            motor2Speed = round(remap(asMultiplier, -180, -90, 0, 1023))
+
+        if speed < 0.05:
+            motor1Speed = 0
+            motor2Speed = 0
+
+        motor1.set_moving_speed(motor1Speed)
+        motor2.set_moving_speed(motor2Speed)
 
     sio.connect('http://192.168.2.11:3000')
     sio.wait()
 
 except KeyboardInterrupt:
-    time.sleep(1)
+    time.sleep(0.5)
     motor1.set_moving_speed(0)
     motor2.set_moving_speed(0)
     motor1.disable_torque()
