@@ -57,31 +57,37 @@ def my_message(data):
 def disconnect():
     print('disconnected from server')
 
-
+n = 0
 @sio.on('drive-orders')
 def on_message(angle, speed):
-
-    newAngle = round(math.pow((angle + (4/math.pi))*speed*1000, 3), 4)
-    if speed > -0.05 and speed < 0.05:
-        newAngle = 0
-
-    # newSpeed = round(remap(speed, 0, 1.15, 0, 1023))
-
-    # if angle < 0:
-    #     newAngle = round(remap(angle, -3.14, 0, 1024, 2047))
-
-    # if angle > 0:
-    #     newAngle = round(remap(angle, 0, 3.14, 0, 1023))
-
-    # if newSpeed < 50:
-    #     newAngle = 0
-
-    # motor2Angle = round(remap(newAngle, 0, 2047, -2047, 0))
-    # motor2Angle = -motor2Angle
-    # if motor2Angle > 1023:
-    #     motor2Angle = round(remap(motor2Angle, 1024, 2047, -2047, -1024))
-    #     motor2Angle = -motor2Angle
-    print(newAngle)
+   
+    while (n < 10):
+        asMultiplier = angle * speed
+        # # newAngle = round(math.pow(asMultiplier, 3), 4)
+        # newAngle = round(remap(asMultiplier, 0, 180, 0, 1023))
+        if speed < 0.05:
+            motor1Speed = 0
+            motor2Speed = 0
+        if angle == 90:
+            motor1Speed = 1023
+            motor2Speed = 2047
+        elif angle == -90:
+            motor1Speed = 2047
+            motor2Speed = 1023
+        elif angle >= 0 and angle < 90:
+            motor1Speed = 1023 * speed
+            motor2Speed = round(remap(asMultiplier, 0, 90, 0, 2047))
+        elif angle > 90 and angle <= 180:
+            motor1Speed = round(remap(asMultiplier, 90, 180, 0, 1023))
+            motor2Speed = 2047 * speed
+        elif angle < 0 and angle > -90:
+            motor1Speed = round(remap(asMultiplier, -90, 0, 2047, 0))
+            motor2Speed = 1023 * speed
+        elif angle < -90 and angle >= -180:
+            motor1Speed = 2047 * speed
+            motor2Speed = round(remap(asMultiplier, -180, -90, 0, 1023))
+        n += 1
+        print(motor1Speed + " | " + motor2Speed)
 
 
 sio.connect('http://192.168.2.11:3000')
