@@ -1,5 +1,4 @@
 from AX12 import Ax12
-import math
 import socketio
 import time
 
@@ -52,8 +51,8 @@ Ax12.connect()
 # create AX12 instance with motors ID
 motor1 = Ax12(1)
 motor2 = Ax12(2)
-motor1.set_max_voltage_limit(160)
-motor2.set_max_voltage_limit(160)
+motor1.set_max_voltage_limit(130)
+motor2.set_max_voltage_limit(130)
 motor1.enable_torque()
 motor2.enable_torque()
 motor1.set_torque_limit(1023)
@@ -79,16 +78,11 @@ try:
     @sio.on('drive-orders')
     def on_message(angle, speed):
         asMultiplier = angle * speed
-        # newSpeed = 0
-        # newAngle = 0
 
-        if angle == 90:
-            motor1Speed = 1023
-            motor2Speed = 2047
-
-        elif angle == -90:
-            motor1Speed = 2047
-            motor2Speed = 1023
+        # Speed Limiter
+        if speed < 0.05:
+            motor1Speed = 0
+            motor2Speed = 0
 
         # First Quadrant
         elif angle >= 0 and angle < 90:
@@ -109,11 +103,6 @@ try:
         elif angle < -90 and angle >= -180:
             motor1Speed = round(2047 * speed)
             motor2Speed = round(remap(asMultiplier, -180, -90, 0, 1023))
-
-        # Speed Limiter
-        if speed < 0.05:
-            motor1Speed = 0
-            motor2Speed = 0
 
         motor1.set_moving_speed(motor1Speed)
         motor2.set_moving_speed(motor2Speed)
