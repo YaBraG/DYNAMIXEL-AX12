@@ -10,10 +10,10 @@ Ax12.connect()
 
 # create AX12 instance with motors ID
 motor1 = Ax12(1)
-motor2 = Ax12(2)
+# motor2 = Ax12(2)
 
 motor1.set_moving_speed(1023)
-motor2.set_moving_speed(1023)
+# motor2.set_moving_speed(1023)
 
 angle1 = 0
 angle2 = 0
@@ -54,7 +54,7 @@ def on_message(pitch, yaw):
     angle1 = (int(pitch))
     angle2 = (int(yaw))
     motor1.set_goal_position(angle1)
-    motor2.set_goal_position(angle2)
+    # motor2.set_goal_position(angle2)
 
 
 """
@@ -91,5 +91,5 @@ def on_message(pitch, yaw):
 # Ax12.disconnect()
 """
 
-sio.connect('http://192.168.2.11:3000')
+sio.connect('http://192.168.2.12:3000')
 sio.wait()

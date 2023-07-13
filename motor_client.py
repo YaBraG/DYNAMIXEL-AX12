@@ -144,5 +144,5 @@ def on_message(angle, speed):
     drive.move()
 
 
-sio.connect('http://192.168.2.11:3000')
+sio.connect('http://192.168.2.12:3000')
 sio.wait()

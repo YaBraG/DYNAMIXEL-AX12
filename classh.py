@@ -96,5 +96,5 @@ def on_message(angle, speed):
     print(f"M1 = {motor1Speed} | M2 = {motor2Speed}")
 
 
-sio.connect('http://192.168.2.11:3000')
+sio.connect('http://192.168.2.12:3000')
 sio.wait()
