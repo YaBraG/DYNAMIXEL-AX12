@@ -9,7 +9,7 @@ Ax12.BAUDRATE = 1_000_000
 Ax12.connect()
 
 # create AX12 instance with ID 10
-motor_id = 10
+motor_id = 1
 my_dxl = Ax12(motor_id)
 my_dxl.set_moving_speed(200)
 
