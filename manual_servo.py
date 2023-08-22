@@ -11,7 +11,6 @@ Ax12.connect()
 # create AX12 instance with ID 10
 motor_id = 1
 my_dxl = Ax12(motor_id)
-my_dxl.set_moving_speed(200)
 
 
 def user_input():
@@ -26,12 +25,14 @@ def user_input():
 def main(motor_object):
     """ sets goal position based on user input """
     bool_test = True
+    speed = int(input("Motor Speed: "))
+    my_dxl.set_moving_speed(speed)
     while bool_test:
 
         print("\nPosition of dxl ID: %d is %d " %
               (motor_object.id, motor_object.get_present_position()))
         # desired angle input
-        input_pos = int(input("goal pos: "))
+        input_pos = int(input("Goal Possition: "))
         motor_object.set_goal_position(input_pos)
         print("Position of dxl ID: %d is now: %d " %
               (motor_object.id, motor_object.get_present_position()))
