@@ -45,5 +45,3 @@ main(my_dxl)
 # disconnect
 my_dxl.set_torque_enable(0)
 Ax12.disconnect()
-
-mdcrobotics
