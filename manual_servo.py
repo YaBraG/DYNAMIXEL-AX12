@@ -1,4 +1,5 @@
 from AX12 import Ax12
+import time
 
 # e.g 'COM3' windows or '/dev/ttyUSB0' for Linux
 Ax12.DEVICENAME = '/dev/ttyUSB0'
@@ -40,8 +41,14 @@ def main(motor_object):
 
 
 # pass in AX12 object
-main(my_dxl)
+try:
+    main(my_dxl)
 
 # disconnect
-my_dxl.set_torque_enable(0)
-Ax12.disconnect()
+    my_dxl.set_torque_enable(0)
+    Ax12.disconnect()
+
+except KeyboardInterrupt:
+    time.sleep(0.5)
+    my_dxl.set_moving_speed(0)
+    my_dxl.disable_torque()
